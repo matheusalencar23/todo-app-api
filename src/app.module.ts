@@ -5,6 +5,7 @@ import { TypeOrmConfigService } from './db/typeOrmConfig.service';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
