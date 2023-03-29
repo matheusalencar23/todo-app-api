@@ -18,10 +18,10 @@ export class TodoEntity {
   task: string;
 
   @Column({ name: 'is_done', type: 'boolean' })
-  isDone: number;
+  isDone: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdAt: boolean;
+  createdAt: string;
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: string;
