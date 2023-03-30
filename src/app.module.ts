@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './db/typeOrmConfig.service';
 import { TodoModule } from './app/todo/todo.module';
+import { UsersModule } from './app/users/users.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { TodoModule } from './app/todo/todo.module';
       useClass: TypeOrmConfigService,
     }),
     TodoModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],
