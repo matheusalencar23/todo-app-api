@@ -19,7 +19,7 @@ export class TodoEntity {
   @Column()
   task: string;
 
-  @Column({ name: 'is_done', type: 'boolean' })
+  @Column({ name: 'is_done', default: false })
   isDone: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
