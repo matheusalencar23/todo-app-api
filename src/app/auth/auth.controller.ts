@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { Public } from '../guards/public.decorator';
+import { Public } from '../decorators/public.decorator';
 import { AuthService } from './auth.service';
 
 @Controller('api/v1/auth')
