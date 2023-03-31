@@ -14,8 +14,10 @@ export class TodoService {
     private readonly userService: UsersService,
   ) {}
 
-  async findAll() {
-    return await this.todoRepository.find();
+  async findAll(userId: string) {
+    return await this.todoRepository.find({
+      where: { user: { id: userId, isActive: true } },
+    });
   }
 
   async findById(id: string) {
@@ -26,10 +28,10 @@ export class TodoService {
     }
   }
 
-  async create(data: CreateTodoDto) {
+  async create(data: CreateTodoDto, userId: string) {
     const newTodo = this.todoRepository.create({
       ...data,
-      user: await this.userService.findById(data.userId),
+      user: await this.userService.findById(userId),
     });
     return await this.todoRepository.save(newTodo);
   }
