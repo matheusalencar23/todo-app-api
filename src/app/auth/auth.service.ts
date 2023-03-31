@@ -1,6 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersEntity } from '../users/entities/user.entity';
 
@@ -18,13 +17,13 @@ export class AuthService {
       if (!match) throw new UnauthorizedException();
     }
 
-    return {
-      access_token: await this.generateAccessToken(user),
-    };
+    return this.generateAccessToken(user);
   }
 
   async generateAccessToken(user: UsersEntity) {
     const payload = { email: user.email, name: user.name, sub: user.id };
-    return await this.jwtService.signAsync(payload);
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }
