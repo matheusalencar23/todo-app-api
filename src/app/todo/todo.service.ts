@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../user/user.service';
 import { CreateTodoDto } from './dtos/create-todo.dto';
 import { UpdateTodoDto } from './dtos/update-todo.dto';
 import { TodoEntity } from './entities/todo.entity';
@@ -20,9 +20,11 @@ export class TodoService {
     });
   }
 
-  async findById(id: string) {
+  async findById(id: string, userId: string) {
     try {
-      return await this.todoRepository.findOneOrFail({ where: { id: id } });
+      return await this.todoRepository.findOneOrFail({
+        where: { id: id, user: { id: userId, isActive: true } },
+      });
     } catch (err) {
       throw new NotFoundException(err.message);
     }
@@ -36,14 +38,14 @@ export class TodoService {
     return await this.todoRepository.save(newTodo);
   }
 
-  async updateById(id: string, data: UpdateTodoDto) {
-    const todo = await this.findById(id);
+  async updateById(id: string, data: UpdateTodoDto, userId: string) {
+    const todo = await this.findById(id, userId);
     this.todoRepository.merge(todo, data);
     return await this.todoRepository.save(todo);
   }
 
-  async deleteById(id: string) {
-    await this.findById(id);
+  async deleteById(id: string, userId: string) {
+    await this.findById(id, userId);
     await this.todoRepository.softDelete(id);
   }
 }

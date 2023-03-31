@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 
-export class UpdateTodoDto {
+export class UpdateUserDto {
   @IsOptional()
   @ApiProperty()
-  task: string;
+  name: string;
 
   @IsOptional()
   @ApiProperty()
-  isDone: boolean;
+  password: string;
 }
