@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { TodoEntity } from 'src/app/todo/entities/todo.entity';
 
 @Entity({
   name: 'users',
@@ -37,6 +39,9 @@ export class UsersEntity {
 
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt: string;
+
+  @OneToMany(() => TodoEntity, (todo) => todo.user)
+  todos: TodoEntity[];
 
   @BeforeInsert()
   @BeforeUpdate()

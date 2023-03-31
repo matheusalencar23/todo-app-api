@@ -6,4 +6,7 @@ export class CreateTodoDto {
 
   @IsNotEmpty()
   isDone: boolean;
+
+  @IsNotEmpty()
+  userId: string;
 }

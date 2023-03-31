@@ -15,6 +15,16 @@ export class UsersService {
     return await this.userRepository.save(this.userRepository.create(data));
   }
 
+  async findById(id: string) {
+    try {
+      return await this.userRepository.findOneOrFail({
+        where: { id: id },
+      });
+    } catch (err) {
+      throw new NotFoundException(err.message);
+    }
+  }
+
   async findByEmail(email: string) {
     try {
       return await this.userRepository.findOneOrFail({
