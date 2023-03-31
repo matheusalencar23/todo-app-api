@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './user.service';
 
@@ -9,6 +9,7 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Create a new user' })
   async create(@Body() body: CreateUserDto) {
     return await this.userService.create(body);
   }
