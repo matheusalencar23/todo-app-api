@@ -11,6 +11,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ErrorResponse } from 'src/helpers/swagger/error-swagger';
 import { UserId } from '../decorators/user.decorator';
 import { CreateTodoDto } from './dtos/create-todo.dto';
 import { UpdateTodoDto } from './dtos/update-todo.dto';
@@ -48,11 +49,15 @@ export class TodoController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a task by id task and user' })
-  @ApiResponse({ status: 200, description: 'Task corresponding to id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Task corresponding to id',
+    type: TodoResponse,
+  })
   @ApiResponse({
     status: 404,
     description: 'Task not found',
-    type: TodoResponse,
+    type: ErrorResponse,
   })
   async show(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -68,7 +73,11 @@ export class TodoController {
     description: 'Task updated successfully',
     type: TodoResponse,
   })
-  @ApiResponse({ status: 404, description: 'Task not found' })
+  @ApiResponse({
+    status: 404,
+    description: 'Task not found',
+    type: ErrorResponse,
+  })
   async update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() body: UpdateTodoDto,
@@ -81,7 +90,11 @@ export class TodoController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete the task by id task' })
   @ApiResponse({ status: 204, description: 'Task deleted successfully' })
-  @ApiResponse({ status: 404, description: 'Task not found' })
+  @ApiResponse({
+    status: 404,
+    description: 'Task not found',
+    type: ErrorResponse,
+  })
   async destroy(
     @Param('id', new ParseUUIDPipe()) id: string,
     @UserId() userId: string,
