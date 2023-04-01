@@ -5,7 +5,7 @@ export class ErrorResponse {
   statusCode: number;
 
   @ApiProperty()
-  message: string;
+  message: string | string[];
 
   @ApiProperty()
   error: string;

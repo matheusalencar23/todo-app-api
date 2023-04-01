@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { TodoEntity } from 'src/app/todo/entities/todo.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({
   name: 'users',
@@ -26,6 +27,7 @@ export class UsersEntity {
   name: string;
 
   @Column()
+  @Exclude({ toPlainOnly: true })
   password: string;
 
   @Column({ name: 'is_active', default: true })
